@@ -17,6 +17,7 @@ async function bootstrap() {
   .setDescription('market system application')
   .setVersion('1.0.0')
   .addTag('Status')
+  .addTag('User')
   .build();
 
   const document = SwaggerModule.createDocument(app, config);
