@@ -13,7 +13,7 @@ model User {
   name    String
   cpf     String
   rg      String
-  contato String
+  contact String
   role    String
 
   createdAt DateTime @default(now()) @map("created_at")
