@@ -5,4 +5,5 @@ export class EntityUser {
   rg: string;
   contact: string;
   role: string;
-}
+  password: string;
+};
