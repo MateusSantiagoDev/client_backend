@@ -27,8 +27,8 @@ model Product {
   id String @id @unique
 
   name     String
-  amount   String
-  price    String
+  amount   Int
+  price    Float
   validity String
   code     String
 
