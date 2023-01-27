@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,4 +5,89 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @unique
+
+  name    String
+  cpf     String
+  rg      String
+  contato String
+  role    String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+model Product {
+  id String @id @unique
+
+  name     String
+  amount   String
+  price    String
+  validity String
+  code     String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("product")
+}
+
+model Financial {
+  id String @id @unique
+
+  total_amount Float
+  credit       Float
+  debit        Float
+  cash         Float
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("financial")
+}
+
+model Sangria {
+  id String @id @unique
+
+  value Float
+  date  String
+  note  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("sangria")
+}
+
+model Pay {
+  id String @id @unique
+
+  title String
+  value Float
+  date  String
+  note  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("pay")
+}
+
+model Receive {
+  id String @id @unique
+
+  title String
+  value Float
+  date  String
+  note  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("receive")
 }
