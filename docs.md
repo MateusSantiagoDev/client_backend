@@ -29,7 +29,7 @@
   - código do produto
   - quantidade do produto
   - preço do produto
-  - forma de pagamento [ tabela de pagamento]
+  - forma de pagamento [ tabela de pagamento ]
 
   ## financeiro
   - valor em caixa
