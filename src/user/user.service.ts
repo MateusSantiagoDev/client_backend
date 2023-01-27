@@ -10,6 +10,13 @@ export class UserService {
     constructor(private readonly repository: UserRepositoty) {}
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
+        if(dto.password) {
+            if(dto.password !== dto.confirmPassword) {
+                return
+            }            
+        }
+        delete dto.confirmPassword;
+
       const newUser: UserEntity = { ...dto, id: randomUUID() }
       if(!newUser) {
         return
@@ -42,6 +49,14 @@ export class UserService {
 
     async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
         await this.findById(id)
+
+        if(dto.password) {
+            if(dto.password !== dto.confirmPassword) {
+                return
+            }            
+        }
+        delete dto.confirmPassword;
+        
         const data: Partial<UserEntity> = { ...dto };
         const result = await this.repository.update(id, data)
         if(!result) {
