@@ -14,13 +14,13 @@ import { FinancialEntity } from './entities/financialEntity';
 
 
   
-  @ApiTags('Product')
-  @Controller('product')
+  @ApiTags('Financial')
+  @Controller('financial')
   export class FinancialController {
     constructor(private readonly service: FinancialService) {}
   
     @ApiOperation({
-      summary: 'Adicionar um novo Produto',
+      summary: 'Adicionar um novo valor',
     })
     @Post()
     async create(@Body() dto: CreateFinancialDto): Promise<FinancialEntity> {
@@ -30,7 +30,7 @@ import { FinancialEntity } from './entities/financialEntity';
     }
   
     @ApiOperation({
-      summary: 'Visualizar todos os Produtos',
+      summary: 'Visualizar todos os valores',
     })
     @Get()
     async findAll(): Promise<FinancialEntity[]> {
@@ -40,7 +40,7 @@ import { FinancialEntity } from './entities/financialEntity';
     }
   
     @ApiOperation({
-      summary: 'Visualizar um Produto pelo ID',
+      summary: 'Visualizar um valor pelo ID',
     })
     @Get(':id')
     async findById(@Param('id') id: string): Promise<FinancialEntity> {
@@ -50,7 +50,7 @@ import { FinancialEntity } from './entities/financialEntity';
     }
   
     @ApiOperation({
-      summary: 'Atualizar um Produto pelo ID',
+      summary: 'Atualizar um valor pelo ID',
     })
     @Patch(':id')
     async update(
@@ -63,7 +63,7 @@ import { FinancialEntity } from './entities/financialEntity';
     }
   
     @ApiOperation({
-      summary: 'Excluir um Produto pelo ID',
+      summary: 'Excluir um valor pelo ID',
     })
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<FinancialEntity> {
