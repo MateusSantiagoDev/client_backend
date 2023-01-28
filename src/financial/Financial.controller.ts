@@ -11,6 +11,8 @@ import {
 import { CreateFinancialDto } from './dto/create-financial-dto';
 import { UpdateFinancialDto } from './dto/update-financial-dto';
 import { FinancialEntity } from './entities/financialEntity';
+import { FinancialService } from './Financial.service';
+
 
 
   
