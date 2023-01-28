@@ -20,6 +20,7 @@ async function bootstrap() {
   .addTag('User')
   .addTag('Product')
   .addTag('Financial')
+  .addTag('Sangria')
   .build();
 
   const document = SwaggerModule.createDocument(app, config);
