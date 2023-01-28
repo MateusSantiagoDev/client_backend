@@ -3,10 +3,11 @@ import { randomUUID } from 'crypto';
 import { CreateSangriaDto } from './dto/create-sangria-dto';
 import { UpdateSangriaDto } from './dto/update-sangria-dto';
 import { SangriaEntity } from './entities/SangriaEntity';
+import { SangriaRepository } from './sangria.repository';
 
 @Injectable()
 export class SangriaService {
-  constructor(private readonly repository: SangriaEntity) {}
+  constructor(private readonly repository: SangriaRepository) {}
 
   async create(dto: CreateSangriaDto): Promise<SangriaEntity> {
     const newUser: SangriaEntity = { ...dto, id: randomUUID() };
