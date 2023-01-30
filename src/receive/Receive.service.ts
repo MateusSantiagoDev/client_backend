@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { CreateReceiveDto } from "./dto/create-receive-dto";
 import { UpdateReceiveDto } from "./dto/update-receive-dto";
 import { ReceiveEntity } from "./entities/ReceiveEntity";
-
+import { ReceiveRepository } from "./Receive.repository";
 
 
 @Injectable()
