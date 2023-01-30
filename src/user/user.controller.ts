@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { HandleException } from 'src/exceptions/handleException';
 import { CreateUserDto } from './dto/create-user-dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UserEntity } from './entities/entity-user';
@@ -25,7 +26,9 @@ export class UserController {
   async create(@Body() dto: CreateUserDto): Promise<UserEntity> {
     try {
       return await this.service.create(dto);
-    } catch (err) {}
+    } catch (err) {
+      HandleException(err)
+    }
   }
 
   @ApiOperation({
@@ -35,7 +38,9 @@ export class UserController {
   async findAll(): Promise<UserEntity[]> {
     try {
       return await this.service.findAll();
-    } catch (err) {}
+    } catch (err) {
+      HandleException(err)
+    }
   }
 
   @ApiOperation({
@@ -45,7 +50,9 @@ export class UserController {
   async findById(@Param('id') id: string): Promise<UserEntity> {
     try {
       return await this.service.findById(id);
-    } catch (err) {}
+    } catch (err) {
+      HandleException(err)
+    }
   }
 
   @ApiOperation({
@@ -58,7 +65,9 @@ export class UserController {
   ): Promise<UserEntity> {
     try {
       return await this.service.update(id, dto);
-    } catch (err) {}
+    } catch (err) {
+      HandleException(err)
+    }
   }
 
   @ApiOperation({
@@ -68,6 +77,8 @@ export class UserController {
   async delete(@Param('id') id: string): Promise<UserEntity> {
     try {
       return await this.service.delete(id);
-    } catch (err) {}
+    } catch (err) {
+      HandleException(err)
+    }
   }
 }

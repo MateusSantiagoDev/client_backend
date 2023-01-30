@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { randomUUID } from "crypto";
+import { Exceptions } from "src/exceptions/exception";
+import { Exception } from "src/exceptions/exception.type";
 import { CreateUserDto } from "./dto/create-user-dto";
 import { UpdateUserDto } from "./dto/update-user-dto";
 import { UserEntity } from "./entities/entity-user";
@@ -10,67 +12,66 @@ export class UserService {
     constructor(private readonly repository: UserRepositoty) {}
 
     async create(dto: CreateUserDto): Promise<UserEntity> {
-        if(dto.password) {
-            if(dto.password !== dto.confirmPassword) {
-                return
-            }            
-        }
-        delete dto.confirmPassword;
+        try {
 
-      const newUser: UserEntity = { ...dto, id: randomUUID() }
-      if(!newUser) {
-        return
-      }
-      const result = await this.repository.create(newUser)
-      if(!result) {
-        return
-      }
-      return result;
+            if(dto.password) {
+                if(dto.password !== dto.confirmPassword) {
+                    throw new Exceptions(Exception.InvalidData)
+                }            
+            }
+            delete dto.confirmPassword;
+    
+          const data: UserEntity = { ...dto, id: randomUUID() }         
+          const result = await this.repository.create(data)         
+          return result;
+        } catch (err) {
+            throw new Exceptions(Exception.UnprocessableEntityException)
+        }
     }
 
     async findAll(): Promise<UserEntity[]> {
         const result = await this.repository.findAll()
         if(!result) {
-            return
+            throw new Exceptions(Exception.DatabaseException)
+            
         }
         return result;
     }
 
     async findById(id: string): Promise<UserEntity> {
-        if(!id) {
-            return
-        }
-        const result = await this.repository.findById(id)
-        if(!result) {
-           return 
-        }
-        return result;
+     try {
+         const result = await this.repository.findById(id)        
+         return result;
+     } catch (err) {
+        throw new Exceptions(Exception.NotFoundException)
+     }
     }
 
-    async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {
+    async update(id: string, dto: UpdateUserDto): Promise<UserEntity> {        
         await this.findById(id)
-
-        if(dto.password) {
-            if(dto.password !== dto.confirmPassword) {
-                return
-            }            
+        try {            
+            if(dto.password) {
+                if(dto.password !== dto.confirmPassword) {
+                    throw new Exceptions(Exception.InvalidData)
+                }            
+            }
+            delete dto.confirmPassword;
+            
+            const data: Partial<UserEntity> = { ...dto };
+            const result = await this.repository.update(id, data)            
+            return result;
+        } catch (err) {
+            throw new Exceptions(Exception.UnprocessableEntityException)
         }
-        delete dto.confirmPassword;
-        
-        const data: Partial<UserEntity> = { ...dto };
-        const result = await this.repository.update(id, data)
-        if(!result) {
-            return
-        }
-        return result;
     }
 
     async delete(id: string): Promise<UserEntity> {
         await this.findById(id)
-        const result = await this.repository.delete(id)
-        if(!result) {
-            return
-        }
-        return result;
+       try {
+           const result = await this.repository.delete(id)      
+           return result;
+       } catch (err) {
+        throw new Exceptions(Exception.NotFoundException)
+       }
     }
 }
