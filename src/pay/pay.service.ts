@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { CreatePayDto } from "./dto/create-pay-dto";
 import { UpdatePayDto } from "./dto/update-pay-dto";
 import { PayEntity } from "./entities/PayEntity";
+import { PayRepository } from "./Pay.repository";
 
 
 

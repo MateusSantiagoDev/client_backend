@@ -11,7 +11,7 @@ import {
 import { CreatePayDto } from './dto/create-pay-dto';
 import { UpdatePayDto } from './dto/update-pay-dto';
 import { PayEntity } from './entities/PayEntity';
-import { PayService } from './pay.service';
+import { PayService } from './Pay.service';
 
   
   @ApiTags('Pay')
