@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { hash } from 'bcrypt';
 import { Exceptions } from 'src/exceptions/exception';
 import { Exception } from 'src/exceptions/exception.type';
 import { CreateUserDto } from './dto/create-user-dto';
@@ -20,7 +21,7 @@ export class UserService {
       }
       delete dto.confirmPassword;
 
-      const data: UserEntity = { ...dto, id: randomUUID() };
+      const data: UserEntity = { id: randomUUID(), ...dto, password: await hash(dto.password, 10) };
       return await this.repository.create(data);      
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
@@ -54,6 +55,9 @@ export class UserService {
       delete dto.confirmPassword;
 
       const data: Partial<UserEntity> = { ...dto };
+      if(data.password) {
+        data.password = await hash(data.password, 10);
+      }
       return await this.repository.update(id, data);      
     } catch (err) {
       throw new Exceptions(Exception.UnprocessableEntityException);
