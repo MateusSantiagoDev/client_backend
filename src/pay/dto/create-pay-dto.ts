@@ -24,5 +24,5 @@ export class CreatePayDto {
   @ApiProperty({
     description: 'Observação sobre o pagamento',
   })
-  node: string;
+  note: string;
 }
