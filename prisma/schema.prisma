@@ -17,6 +17,12 @@ model User {
   role     String
   password String
 
+  product   Product[]
+  financial Financial[]
+  sangria   Sangria[]
+  pay       Pay[]
+  receive   Receive[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -32,6 +38,9 @@ model Product {
   validity String
   code     String
 
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -46,6 +55,12 @@ model Financial {
   debit        Float
   cash         Float
 
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  sangria   Sangria @relation(fields: [sangriaId], references: [id])
+  sangriaId String  @unique
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -58,6 +73,10 @@ model Sangria {
   value Float
   date  String
   note  String
+
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  financial Financial?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -73,6 +92,9 @@ model Pay {
   date  String
   note  String
 
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -86,6 +108,9 @@ model Receive {
   value Float
   date  String
   note  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
